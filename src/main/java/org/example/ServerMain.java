@@ -20,12 +20,9 @@ public class ServerMain {
     public static void main(String[] args) {
         ExecutorService executeIt = Executors.newFixedThreadPool(10);
 
-        try (ServerSocket server = new ServerSocket(8080,0 , InetAddress.getLocalHost());
+        try (ServerSocket server = new ServerSocket(8080);
              BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Server socket created, command console reader for listen to server commands");
-
-            JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-            jmdns.registerService(ServiceInfo.create("_http._tcp.local.", "myserver", 8080, "path=index.html"));
 
             while (!server.isClosed()) {
                 if (br.ready()) {
